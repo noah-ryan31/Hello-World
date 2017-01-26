@@ -580,11 +580,80 @@ $bit-percentage: 100 / $num-bits * 1%;
       transform: translateY(0) skewY(0deg);
       opacity: 1;
     }
-    
+    @import "compass";
+
+$flag-height: 32em;
+$flag-width: $flag-height * 1.6875;
+$stripe-height: $flag-height / 13;
+$red: tomato;
+$white: #FFFFF9;
+$blue: #0971B2;
+
+html  {
+  @include box-sizing(border-box);
+}
+*, *:before, *:after {
+  @include box-sizing(border-box);
+}
+
+.flag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  width: $flag-width;
+  height: $flag-height;
+  background: $white;
+  overflow: hidden;
+  @include box-shadow((rgba(black, .3)) 5px 5px 10px);
+}
+
+.stars {
+  z-index: 1000;
+  position: absolute;
+  @include display-flex;
+  @include flex-wrap(wrap);
+  @include justify-content(center);
+  @include align-items(stretch);
+  background: $blue;
+  width: $flag-width * 0.45;
+  height: ($stripe-height * 7);
+  padding: 1em;
+  text-align: center;
+  &:nth-child(5n + 7) {
+    text-indent: 50px;
+  }
+}
+
+.fa-star {  
+  @incldue align-self(auto);
+  @include flex-basis(16.6666%);
+  color: #fff;
+  font-size: 1.25em;
+  margin-bottom: .25em;
+  @inlcude flex-order(1);
+  &:nth-child(11n + 7) {
+    margin-left: 1%;
+  }
+  // some twinkle for the stars
+  @for $i from 1 through 50 {
+    &:nth-child(#{$i}) { 
+      @include animation(pulse (0.15s * $i) infinite ease-in-out);
     }
   }
 }
 
-// Setting up the Pen
-body {
+.stripes {
+  position: block;
+  width: 100%;  
+  height: $stripe-height;  
+  background: $white;
+  &:nth-of-type(even) {
+    background: $red;
+  }
+}
+    
+    
  
